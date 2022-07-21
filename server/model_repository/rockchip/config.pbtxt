@@ -1,0 +1,35 @@
+backend: "rockchip"
+max_batch_size: 8
+dynamic_batching {
+  max_queue_delay_microseconds: 500000
+}
+input [
+  {
+    name: "images"
+    data_type: TYPE_INT8
+    dims: [ 3,384,640 ]
+    format: FORMAT_NHWC
+  }
+]
+output [
+  {
+    name: "output"
+    data_type: TYPE_INT8
+    dims: [1, 81, 48, 80]
+  },
+  {
+    name: "376"
+    data_type: TYPE_INT8
+    dims: [1, 81, 24, 40]
+  },
+  {
+    name: "377"
+    data_type: TYPE_INT8
+    dims: [1, 81, 12, 20]
+  }
+]
+instance_group [
+  {
+    kind: KIND_CPU
+  }
+]

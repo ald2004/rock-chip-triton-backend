@@ -1,0 +1,13 @@
+include(CMakeFindDependencyMacro)
+
+get_filename_component(
+  ROCKCHIPBACKEND_CMAKE_DIR "${CMAKE_CURRENT_LIST_FILE}" PATH
+)
+
+list(APPEND CMAKE_MODULE_PATH ${ROCKCHIPBACKEND_CMAKE_DIR})
+
+if(NOT TARGET BoeRockChipBackend::rock-chip_Backend)
+  include("${ROCKCHIPBACKEND_CMAKE_DIR}/rock-chip_BackendTargets.cmake")
+endif()
+
+set(ROCKCHIPBACKEND_CMAKE_DIR_LIBRARIES BoeRockChipBackend::rock-chip_Backend)

@@ -1,0 +1,99 @@
+
+I0721 09:43:32.449716 2096778 model_repository_manager.cc:1191] loading: batching:1
+Killed
+I0721 09:43:32.551018 2096778 model_repository_manager.cc:1191] loading: rockchip:1
+I0721 09:43:32.559711 2096778 model_repository_manager.cc:1345] successfully loaded 'batching' version 1
+I0721 09:43:32.658655 2096778 rock-chip_backend.cc:525] TRITONBACKEND_Initialize: rockchip
+I0721 09:43:32.659440 2096778 rock-chip_backend.cc:537] Triton TRITONBACKEND API version: 1.10
+I0721 09:43:32.660047 2096778 rock-chip_backend.cc:543] 'rockchip' TRITONBACKEND API version: 1.10
+I0721 09:43:32.660670 2096778 rock-chip_backend.cc:569] backend configuration:
+{"cmdline":{"auto-complete-config":"true","min-compute-capability":"0.000000","backend-directory":"/opt/tritonserver/backends","default-max-batch-size":"4"}}
+I0721 09:43:32.664826 2096778 rock-chip_backend.cc:299] validated model config for input and output shape is:[3,384,640][1,81,12,20]
+I0721 09:43:32.665098 2096778 rock-chip_backend.cc:657] TRITONBACKEND_ModelInstanceInitialize: rockchip_0 (device 0)
+I0721 09:43:32.665331 2096778 rock-chip_backend.cc:373] rk backends running on device arch :ARM64
+I0721 09:43:32.665536 2096778 rock-chip_backend.cc:399] rk backend will load model from :model_repository/rockchip/1/model.rknn
+E0721 09:43:32.774193 2096778 rock-chip_backend.cc:408] rknn_init succeed! ret= :0
+I0721 09:43:32.774263 2096778 rock-chip_backend.cc:410] rknn sdk api version: 1.3.0 (c193be371@2022-05-04T20:16:33), rknn driver version: 0.7.2
+I0721 09:43:32.774289 2096778 rock-chip_backend.cc:414] 
+ rknn_mem_size : 
+	 total_weight_size : 2900032
+	 total_internal_size : 16465920
+I0721 09:43:32.774333 2096778 rock-chip_backend.cc:472] 
+ io_name : output
+ byte_size : 311040
+I0721 09:43:32.774359 2096778 rock-chip_backend.cc:472] 
+ io_name : 376
+ byte_size : 77760
+I0721 09:43:32.774383 2096778 rock-chip_backend.cc:472] 
+ io_name : 377
+ byte_size : 19440
+I0721 09:43:32.774995 2096778 model_repository_manager.cc:1345] successfully loaded 'rockchip' version 1
+I0721 09:43:32.775434 2096778 server.cc:556] 
++------------------+------+
+| Repository Agent | Path |
++------------------+------+
++------------------+------+
+
+I0721 09:43:32.775899 2096778 server.cc:583] 
++----------+-------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Backend  | Path                                            | Config                                                                                                                                                        |
++----------+-------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| minimal  | model_repository/batching/libtriton_minimal.so  | {"cmdline":{"auto-complete-config":"true","min-compute-capability":"0.000000","backend-directory":"/opt/tritonserver/backends","default-max-batch-size":"4"}} |
+| rockchip | model_repository/rockchip/libtriton_rockchip.so | {"cmdline":{"auto-complete-config":"true","min-compute-capability":"0.000000","backend-directory":"/opt/tritonserver/backends","default-max-batch-size":"4"}} |
++----------+-------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+I0721 09:43:32.776448 2096778 server.cc:626] 
++----------+---------+--------+
+| Model    | Version | Status |
++----------+---------+--------+
+| batching | 1       | READY  |
+| rockchip | 1       | READY  |
++----------+---------+--------+
+
+I0721 09:43:32.777299 2096778 tritonserver.cc:2159] 
++----------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Option                           | Value                                                                                                                                                                                  |
++----------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| server_id                        | triton                                                                                                                                                                                 |
+| server_version                   | 0.0.0                                                                                                                                                                                  |
+| server_extensions                | classification sequence model_repository model_repository(unload_dependents) schedule_policy model_configuration system_shared_memory cuda_shared_memory binary_tensor_data statistics |
+| model_repository_path[0]         | model_repository                                                                                                                                                                       |
+| model_control_mode               | MODE_NONE                                                                                                                                                                              |
+| strict_model_config              | 0                                                                                                                                                                                      |
+| rate_limit                       | OFF                                                                                                                                                                                    |
+| pinned_memory_pool_byte_size     | 268435456                                                                                                                                                                              |
+| response_cache_byte_size         | 0                                                                                                                                                                                      |
+| min_supported_compute_capability | 0.0                                                                                                                                                                                    |
+| strict_readiness                 | 1                                                                                                                                                                                      |
+| exit_timeout                     | 30                                                                                                                                                                                     |
++----------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+I0721 09:43:32.778443 2096778 http_server.cc:3303] Started HTTPService at 0.0.0.0:8000
+I0721 09:43:34.034062 2096778 rock-chip_backend.cc:752] model rockchip, instance rockchip_0, executing 2 requests
+I0721 09:43:34.040330 2096778 rock-chip_backend.cc:864] model rockchip: requests in batch 2
+I0721 09:43:34.281777 2096778 rock-chip_backend.cc:872] batched images value: ignored
+I0721 09:43:34.281850 2096778 rock-chip_backend.cc:887] model input num: 1, output num: 3 
+
+  index=0, name=images, n_dims=4, dims=[1, 384, 640, 3], n_elems=737280, size=737280, fmt=NHWC, type=INT8, qnt_type=AFFINE, zp=-128, scale=0.003922
+  index=0, name=output, n_dims=4, dims=[1, 81, 48, 80], n_elems=311040, size=311040, fmt=NCHW, type=INT8, qnt_type=AFFINE, zp=55, scale=0.141896
+  index=1, name=376, n_dims=4, dims=[1, 81, 24, 40], n_elems=77760, size=77760, fmt=NCHW, type=INT8, qnt_type=AFFINE, zp=45, scale=0.142525
+  index=2, name=377, n_dims=4, dims=[1, 81, 12, 20], n_elems=19440, size=19440, fmt=NCHW, type=INT8, qnt_type=AFFINE, zp=53, scale=0.104938
+I0721 09:43:34.281948 2096778 rock-chip_backend.h:81] ========================
+1474560
+I0721 09:43:34.281960 2096778 rock-chip_backend.cc:930] model is NHWC input fmt
+I0721 09:43:34.281972 2096778 rock-chip_backend.cc:937] model input height=640, width=384, channel=3
+I0721 09:43:34.303878 2096778 rock-chip_backend.cc:1023] now dump supports_first_dim_batching 1 ,input_tensor_shape[-1,3,384,640],responses.size :[2]
+I0721 09:43:39.727434 2096778 rock-chip_backend.cc:752] model rockchip, instance rockchip_0, executing 2 requests
+I0721 09:43:39.730062 2096778 rock-chip_backend.cc:864] model rockchip: requests in batch 2
+I0721 09:43:39.931481 2096778 rock-chip_backend.cc:872] batched images value: ignored
+I0721 09:43:39.931564 2096778 rock-chip_backend.cc:887] model input num: 1, output num: 3 
+
+  index=0, name=images, n_dims=4, dims=[1, 384, 640, 3], n_elems=737280, size=737280, fmt=NHWC, type=INT8, qnt_type=AFFINE, zp=-128, scale=0.003922
+  index=0, name=output, n_dims=4, dims=[1, 81, 48, 80], n_elems=311040, size=311040, fmt=NCHW, type=INT8, qnt_type=AFFINE, zp=55, scale=0.141896
+  index=1, name=376, n_dims=4, dims=[1, 81, 24, 40], n_elems=77760, size=77760, fmt=NCHW, type=INT8, qnt_type=AFFINE, zp=45, scale=0.142525
+  index=2, name=377, n_dims=4, dims=[1, 81, 12, 20], n_elems=19440, size=19440, fmt=NCHW, type=INT8, qnt_type=AFFINE, zp=53, scale=0.104938
+I0721 09:43:39.931647 2096778 rock-chip_backend.h:81] ========================
+1474560
+I0721 09:43:39.931659 2096778 rock-chip_backend.cc:930] model is NHWC input fmt
+I0721 09:43:39.931671 2096778 rock-chip_backend.cc:937] model input height=640, width=384, channel=3
+I0721 09:43:39.953166 2096778 rock-chip_backend.cc:1023] now dump supports_first_dim_batching 1 ,input_tensor_shape[-1,3,384,640],responses.size :[2]
