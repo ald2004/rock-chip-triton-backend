@@ -42,26 +42,31 @@ if __name__ == '__main__':
     # delay up to 5 seconds when forming a batch for this model, we
     # expect these 2 requests to be batched within Triton and sent to
     # the minimal backend as a single batch.
-    print('\n=========')
+    
     async_requests = []
 
-    input0_data = np.array([[ 10, 11, 12, 13 ]], dtype=np.int32)
-    print('Sending request to rockchip model: IN0 = {}'.format(input0_data))
-    inputs = [ httpclient.InferInput('IN0', [1, 4], "INT32") ]
-    inputs[0].set_data_from_numpy(input0_data)
+    for _ in range(1):
+        print('.',end='',flush=True)
+        # input0_data = np.array([[ 10, 11, 12, 13 ]], dtype=np.int32)
+        input0_data = np.random.randint(0,high=128,size=(1,3,384,640),dtype=np.int8)
+        # print('Sending request to rockchip model: IN0 = {}'.format(input0_data))
+        inputs = [ httpclient.InferInput('images', [1,3, 384, 640], "INT8") ]
+        inputs[0].set_data_from_numpy(input0_data)
+        async_requests.append(triton_client.async_infer('rockchip', inputs))
+
+    # # input0_data = np.array([[ 20, 21, 22, 23 ]], dtype=np.int32)
+    # input0_data = np.random.randint(0,high=128,size=(1,3,384,640),dtype=np.int8)
+    # print('Sending request to rockchip model: IN0 = {}'.format(input0_data))
+    # inputs = [ httpclient.InferInput('INPUT_0', [1,3, 384, 640], "INT8") ]
+    # inputs[0].set_data_from_numpy(input0_data)
+    
     async_requests.append(triton_client.async_infer('rockchip', inputs))
 
-    input0_data = np.array([[ 20, 21, 22, 23 ]], dtype=np.int32)
-    print('Sending request to rockchip model: IN0 = {}'.format(input0_data))
-    inputs = [ httpclient.InferInput('IN0', [1, 4], "INT32") ]
-    inputs[0].set_data_from_numpy(input0_data)
-    async_requests.append(triton_client.async_infer('rockchip', inputs))
-    print('\n ======== request sent.')
     for async_request in async_requests:
         # Get the result from the initiated asynchronous inference
         # request. This call will block till the server responds.
-        print('will get ...')
         result = async_request.get_result()
         print('Response: {}'.format(result.get_response()))
-        print('get result ...')
-        print('OUT0 = {}'.format(result.as_numpy('OUT0')))
+        print('output = {}'.format(result.as_numpy('output').shape))
+        print('371 = {}'.format(result.as_numpy('376').shape))
+        print('390 = {}'.format(result.as_numpy('377').shape))
